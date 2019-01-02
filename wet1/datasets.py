@@ -16,14 +16,14 @@ def generate_swiss_roll(size=3000):
     z = v
     color = u/u.max()
 
-    return (x, y, z, color)
+    return (np.array([x, y, z]), color)
 
-def plot_swiss_roll(x, y, z, color):
+def plot_swiss_roll(data, color):
     for elav, azim in ((50, 40), (90, 0), (50, 90)):
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.view_init(elav, azim)
-        ax.scatter(x, y, z, c=color)
+        ax.scatter(data[0, :], data[1, :], data[2, :], c=color)
         plt.show()
 
 def load_face_data(filename='./face_data.mat'):
