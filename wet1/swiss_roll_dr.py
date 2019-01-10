@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pca_functions
+import manifold_functions
 import datasets
 
 def swiss_pca_and_plot(data, labels=None):
@@ -23,6 +24,22 @@ def swiss_pca_and_plot(data, labels=None):
     ax.set_title("PCA with Manual Features")
     plt.show()
 
+def swiss_manifold_and_plot(data, labels=None):
+    isomap_reduced = manifold_functions.isomap(data, neighbors=20)
+    lle_reduced = manifold_functions.lle(data, neighbors=30)
+
+    fig = plt.figure()
+    fig.suptitle("2D Representation of Swiss Roll Using Manifold Methods", fontsize=16)
+    ax = plt.subplot(1, 2, 1)
+    ax.scatter(isomap_reduced[:, 0], isomap_reduced[:, 1], c=labels)
+    ax.set_title("Isomap")
+
+    ax = plt.subplot(1, 2, 2)
+    ax.scatter(lle_reduced[:, 0], lle_reduced[:, 1], c=labels)
+    ax.set_title("LLE")
+    plt.show()
+
 if __name__ == '__main__':
     swiss_roll, colors = datasets.generate_swiss_roll()
     swiss_pca_and_plot(swiss_roll, colors)
+    swiss_manifold_and_plot(swiss_roll, colors)
