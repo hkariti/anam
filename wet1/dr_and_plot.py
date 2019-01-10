@@ -45,4 +45,5 @@ def do_swiss_roll():
     manifold_and_plot(swiss_roll, 'Swiss Roll', colors)
 
 if __name__ == '__main__':
+    plt.rcParams['figure.figsize'] = [20, 10]
     do_swiss_roll()
