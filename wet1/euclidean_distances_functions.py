@@ -105,8 +105,6 @@ def get_intrinsic_dimension(data, k_1, k_2):
         print(k)
         m_k = np.zeros(num_of_samples)
         for j in range(1, k-1):
-            if np.any(t_mat[k] - t_mat[j] < 0):
-                print("HEEEY")
             m_k += np.log(t_mat[k] / t_mat[j])
         m_k /= k-1
         m_k = m_k.mean()

@@ -1,5 +1,4 @@
 import datasets
-import pca_functions
 import numpy as np
 import euclidean_distances_functions
 import matplotlib.pyplot as plt
@@ -33,7 +32,6 @@ for dataset_name in datasets_dict:
 
     # 2 Manifold Based
     manifold_reduction = dr_and_plot.manifold_and_plot(dataset, dataset_name, labels)
-    continue
 
     algos_reduction.update(manifold_reduction)
     # 3 Euclidean Distances
