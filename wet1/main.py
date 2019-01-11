@@ -27,14 +27,13 @@ for dataset_name in datasets_dict:
     if type(dataset) == tuple and len(dataset) == 2:
         labels = dataset[1]
         dataset = dataset[0]
-        include_manual = True
-
 
     # 1 PCA Based
-    algos_reduction = dr_and_plot.pca_and_plot(dataset, dataset_name, labels, include_manual)
+    algos_reduction = dr_and_plot.pca_and_plot(dataset, dataset_name, labels)
 
     # 2 Manifold Based
     manifold_reduction = dr_and_plot.manifold_and_plot(dataset, dataset_name, labels)
+    continue
 
     algos_reduction.update(manifold_reduction)
     # 3 Euclidean Distances
