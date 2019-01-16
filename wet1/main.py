@@ -7,7 +7,7 @@ import dr_and_plot
 plt.rcParams['figure.figsize'] = [20, 10]
 
 swiss_roll, colors = datasets.generate_swiss_roll()
-faces = datasets.load_face_data() # mind the transpose
+faces = datasets.load_face_data()
 mnist = datasets.load_mnist_data()
 
 # datasets.plot_swiss_roll(swiss_roll, colors)
