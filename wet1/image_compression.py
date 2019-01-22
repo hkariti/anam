@@ -84,6 +84,7 @@ def calc_quality(images, d, patches_dataset, num_of_imgs_for_avg=200):
 if __name__ == '__main__':
     from sklearn.datasets import fetch_lfw_people
     from matplotlib import pyplot as plt
+    print("Fetching dataset")
     dataset = fetch_lfw_people()
     normalized_images = dataset['data']/255
     patches_dataset = create_patches_db(normalized_images)
@@ -94,6 +95,7 @@ if __name__ == '__main__':
     cr = np.zeros(patch_size)
     for d in range(patch_size):
         quality[d], error[d], cr[d] = calc_quality(normalized_images, d, patches_dataset)
+        print("d={}, cr={:.3f}, error={:.3f}, quality={:.3f}".format(d, cr[d], error[d], quality[d]))
 
     print("Best D value is", np.argmax(quality))
     plt.figure()
@@ -101,6 +103,6 @@ if __name__ == '__main__':
     plt.plot(list(range(patch_size)), quality)
     plt.subplot(3, 1, 2)
     plt.plot(list(range(patch_size)), error)
-    plt.subplot(3, 1,3)
+    plt.subplot(3, 1, 3)
     plt.plot(list(range(patch_size)), cr)
     plt.show()
