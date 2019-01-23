@@ -38,9 +38,13 @@ for dataset_name in datasets_dict:
     # 3 Euclidean Distances
     for algo in algos_reduction:
         print(algo)
-        euclidean_distances_functions.find_nn_pair(dataset, algos_reduction[algo])
+        f, s, rd, d = euclidean_distances_functions.find_nn_pair(dataset, algos_reduction[algo])
+        print("Points {}, {} are NN and have distance {} in low d and distance {} in high d".format(f, s, rd, d))
         f, s, rd, d = euclidean_distances_functions.find_far_pair(dataset, algos_reduction[algo])
-        euclidean_distances_functions.calc_c_and_mds_mean_values(dataset, algos_reduction[algo])
+        print("Points {}, {} are far and have distance {} in low d and distance {} in high d".format(f, s, rd, d))
+
+        c, mds = euclidean_distances_functions.calc_c_and_mds_mean_values(dataset, algos_reduction[algo])
+        print("C Mean is {}, MDS mean is {}".format(c, mds))
 
     # 4 Intrinsic Dimension
     m = euclidean_distances_functions.get_intrinsic_dimension_and_plot(dataset, k_1, k_2)
