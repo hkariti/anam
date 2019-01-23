@@ -1,6 +1,8 @@
 import random
 import numpy as np
 from sklearn.decomposition import PCA
+from sklearn.datasets import fetch_lfw_people
+from matplotlib import pyplot as plt
 
 def break_image(image, height=6, width=6):
     width_count = int(image.shape[1]/width)
@@ -81,14 +83,11 @@ def calc_quality(images, d, patches_dataset, num_of_imgs_for_avg=200):
     quality = 1- error - 0.04 * cr
     return quality, error, cr
 
-if __name__ == '__main__':
-    from sklearn.datasets import fetch_lfw_people
-    from matplotlib import pyplot as plt
+def find_best_d_by_quality():
     print("Fetching dataset")
     dataset = fetch_lfw_people()
     normalized_images = dataset['data']/255
     patches_dataset = create_patches_db(normalized_images)
-    d = 5
     patch_size = 36
     quality = np.zeros(patch_size)
     error = np.zeros(patch_size)
@@ -97,12 +96,22 @@ if __name__ == '__main__':
         quality[d], error[d], cr[d] = calc_quality(normalized_images, d, patches_dataset)
         print("d={}, cr={:.3f}, error={:.3f}, quality={:.3f}".format(d, cr[d], error[d], quality[d]))
 
-    print("Best D value is", np.argmax(quality))
+    best_d = np.argmax(quality)
+    print("Best D value is {} with quality: {:.3f}".format(best_d, quality[best_d]))
     plt.figure()
-    plt.subplot(3, 1, 1)
+    ax = plt.subplot(3, 1, 1)
+    ax.set_title('Quality')
+    ax.set_xlabel('d')
     plt.plot(list(range(patch_size)), quality)
     plt.subplot(3, 1, 2)
+    ax.set_title('Error')
+    ax.set_xlabel('d')
     plt.plot(list(range(patch_size)), error)
     plt.subplot(3, 1, 3)
+    ax.set_title('Compression Ratio')
+    ax.set_xlabel('d')
     plt.plot(list(range(patch_size)), cr)
     plt.show()
+
+if __name__ == '__main__':
+    find_best_d_by_quality()

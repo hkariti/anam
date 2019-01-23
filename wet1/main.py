@@ -3,6 +3,7 @@ import numpy as np
 import euclidean_distances_functions
 import matplotlib.pyplot as plt
 import dr_and_plot
+import image_compression
 
 plt.rcParams['figure.figsize'] = [20, 10]
 
@@ -15,7 +16,7 @@ mnist = datasets.load_mnist_data()
 # datasets.plot_mnist_data(mnist)
 
 k_1 = 3
-k_2 = 100
+k_2 = 20
 
 datasets_dict = {"Swiss Roll": (swiss_roll, colors), "Faces": faces, "MNIST": mnist}
 
@@ -45,4 +46,5 @@ for dataset_name in datasets_dict:
     m = euclidean_distances_functions.get_intrinsic_dimension_and_plot(dataset, k_1, k_2)
     print("Intrinsic Dimension: %f" % m)
 
+image_compression.find_best_d_by_quality()
 print("finished")
