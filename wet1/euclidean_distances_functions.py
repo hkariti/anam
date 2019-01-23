@@ -102,7 +102,6 @@ def get_intrinsic_dimension(data, k_1, k_2):
         t_mat[k] = nn_dist_mat[np.arange(0, num_of_samples), nn_idx_mat[:, k]]
 
     for k in range(k_1, k_2+1):
-        print(k)
         m_k = np.zeros(num_of_samples)
         for j in range(1, k-1):
             m_k += np.log(t_mat[k] / t_mat[j])

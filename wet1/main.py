@@ -21,6 +21,7 @@ k_2 = 100
 datasets_dict = {"Swiss Roll": (swiss_roll, colors), "Faces": faces, "MNIST": mnist}
 
 for dataset_name in datasets_dict:
+    print("WORKING ON DATASET:", dataset_name)
     labels = None
     include_manual = False
     dataset = datasets_dict[dataset_name]
@@ -29,15 +30,18 @@ for dataset_name in datasets_dict:
         dataset = dataset[0]
 
     # 1 PCA Based
+    print("Doing DR using PCA-based methods")
     algos_reduction = dr_and_plot.pca_and_plot(dataset, dataset_name, labels)
 
     # 2 Manifold Based
+    print("Doing DR using manifold-based methods")
     manifold_reduction = dr_and_plot.manifold_and_plot(dataset, dataset_name, labels)
-
     algos_reduction.update(manifold_reduction)
+
     # 3 Euclidean Distances
+    print("Calculating euclidean distances metrics")
     for algo in algos_reduction:
-        print(algo)
+        print("For dr alrogithm:", algo)
         f, s, rd, d = euclidean_distances_functions.find_nn_pair(dataset, algos_reduction[algo])
         print("Points {}, {} are NN and have distance {} in low d and distance {} in high d".format(f, s, rd, d))
         f, s, rd, d = euclidean_distances_functions.find_far_pair(dataset, algos_reduction[algo])
@@ -50,5 +54,6 @@ for dataset_name in datasets_dict:
     m = euclidean_distances_functions.get_intrinsic_dimension_and_plot(dataset, k_1, k_2)
     print("Intrinsic Dimension: %f" % m)
 
+print("IMAGE COMPRESSION")
 image_compression.find_best_d_by_quality()
 print("finished")
