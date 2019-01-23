@@ -16,7 +16,7 @@ mnist = datasets.load_mnist_data()
 # datasets.plot_mnist_data(mnist)
 
 k_1 = 3
-k_2 = 20
+k_2 = 100
 
 datasets_dict = {"Swiss Roll": (swiss_roll, colors), "Faces": faces, "MNIST": mnist}
 
